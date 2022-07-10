@@ -1,0 +1,111 @@
+<div class="flex flex-col flex-auto min-w-0">
+
+    <!-- Header -->
+    <div class="flex flex-col sm:flex-row flex-0 sm:items-center sm:justify-between p-6 sm:py-8 sm:px-10 border-b bg-card dark:bg-transparent">
+        <div class="flex-1 min-w-0">
+            <!-- Breadcrumbs -->
+            <div class="flex flex-wrap items-center font-medium">
+                <div>
+                    <a class="whitespace-nowrap text-primary-500">
+                        Gateway
+                    </a>
+                </div>
+                <div class="flex items-center ml-1 whitespace-nowrap">
+                    <mat-icon
+                            class="icon-size-5 text-secondary"
+                            [svgIcon]="'heroicons_solid:chevron-right'"></mat-icon>
+                    <a class="ml-1 text-primary-500">
+                        New
+                    </a>
+                </div>
+            </div>
+            <!-- Title -->
+            <div class="mt-2">
+                <h2 class="text-3xl md:text-4xl font-extrabold tracking-tight leading-7 sm:leading-10 truncate">
+                    New Peripheral
+                </h2>
+            </div>
+        </div>
+    </div>
+
+    <div class="flex-auto p-6 sm:p-10">
+        <fuse-alert
+                class="mb-8"
+                *ngIf="errorMessage"
+                [type]="'error'"
+                [showIcon]="true">
+            {{errorMessage}}
+        </fuse-alert>
+        <div class="max-w-6xl">
+            <form class="flex flex-col mt-8 p-8 pb-4 bg-card rounded-2xl shadow overflow-hidden" [formGroup]="form">
+                <div class="flex">
+                    <mat-form-field
+                            [ngClass]="formFieldHelpers"
+                            class="flex-auto pr-1">
+                        <mat-label>UID</mat-label>
+                        <input
+                                matInput
+                                autocomplete="off"
+                                formControlName="uid"
+                                [placeholder]="'UID]'">
+                        <mat-icon
+                                class="icon-size-5"
+                                matPrefix
+                                [svgIcon]="'mat_solid:filter_2'"></mat-icon>
+                        <mat-hint>This is a hint text</mat-hint>
+                        <mat-error>
+                            This field is required
+                        </mat-error>
+                    </mat-form-field>
+                    <mat-form-field
+                            [ngClass]="formFieldHelpers"
+                            class="flex-auto pl-1">
+                        <mat-label>Vendor</mat-label>
+                        <input
+                                matInput
+                                autocomplete="off"
+                                formControlName="vendor"
+                                [placeholder]="'The name'">
+                        <mat-icon
+                                class="icon-size-5"
+                                matPrefix
+                                [svgIcon]="'mat_solid:drive_file_rename_outline'"></mat-icon>
+                        <mat-error>
+                            This field is required
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+                <div class="flex">
+                    <mat-button-toggle-group formControlName="status" aria-label="Status">
+                        <mat-button-toggle value="online">Online</mat-button-toggle>
+                        <mat-button-toggle value="offline">Offline</mat-button-toggle>
+                    </mat-button-toggle-group>
+                </div>
+                <div class="flex">
+                    <mat-form-field
+                            appearance="fill"
+                            [ngClass]="formFieldHelpers"
+                            class="flex-auto pl-1">
+                        <mat-label>Gateway</mat-label>
+                        <mat-select formControlName="gatewayId">
+                            <mat-option *ngFor="let gateway of gateways" [value]="gateway.id">{{gateway.name}}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+                <div class="flex">
+                    <button mat-flat-button
+                            [disabled]="form.invalid"
+                            class="ml-8/12"
+                            (click)="save()"
+                            [color]="'primary'">
+                        <mat-icon
+                                class="icon-size-5"
+                                matPrefix
+                                [svgIcon]="'mat_solid:save'"></mat-icon>
+                        Save
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

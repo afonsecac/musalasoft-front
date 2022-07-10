@@ -1,0 +1,123 @@
+<div class="flex flex-col flex-auto min-w-0">
+
+    <!-- Header -->
+    <div class="flex flex-col sm:flex-row flex-0 sm:items-center sm:justify-between p-6 sm:py-8 sm:px-10 border-b bg-card dark:bg-transparent">
+        <div class="flex-1 min-w-0">
+            <!-- Breadcrumbs -->
+            <div class="flex flex-wrap items-center font-medium">
+                <div>
+                    <a class="whitespace-nowrap text-primary-500">
+                        Gateway
+                    </a>
+                </div>
+                <div class="flex items-center ml-1 whitespace-nowrap">
+                    <mat-icon
+                            class="icon-size-5 text-secondary"
+                            [svgIcon]="'heroicons_solid:chevron-right'"></mat-icon>
+                    <a class="ml-1 text-primary-500">
+                        <ng-container *ngIf="gateway">
+                            Edit
+                        </ng-container>
+                        <ng-container *ngIf="!gateway">
+                            New
+                        </ng-container>
+                    </a>
+                </div>
+            </div>
+            <!-- Title -->
+            <div class="mt-2">
+                <h2 class="text-3xl md:text-4xl font-extrabold tracking-tight leading-7 sm:leading-10 truncate">
+                    <ng-container *ngIf="gateway">
+                        Edit: {{ gateway?.name }}
+                    </ng-container>
+                    <ng-container *ngIf="!gateway">
+                        New Gateway
+                    </ng-container>
+                </h2>
+            </div>
+        </div>
+    </div>
+
+    <div class="flex-auto p-6 sm:p-10">
+        <fuse-alert
+                class="mb-8"
+                *ngIf="messageError"
+                [type]="'error'"
+                [showIcon]="true">
+            {{messageError}}
+        </fuse-alert>
+        <div class="max-w-6xl">
+            <form class="flex flex-col mt-8 p-8 pb-4 bg-card rounded-2xl shadow overflow-hidden" [formGroup]="form">
+                <div class="flex">
+                    <mat-form-field
+                            [ngClass]="formFieldHelpers"
+                            class="flex-auto pr-1">
+                        <mat-label>Serial Number</mat-label>
+                        <input
+                                matInput
+                                autocomplete="off"
+                                formControlName="serialNumber"
+                                [placeholder]="'Serial Number'">
+                        <mat-icon
+                                class="icon-size-5"
+                                matPrefix
+                                [svgIcon]="'mat_solid:filter_2'"></mat-icon>
+                        <mat-hint>This is a hint text</mat-hint>
+                        <mat-error>
+                            This field is required
+                        </mat-error>
+                    </mat-form-field>
+                    <mat-form-field
+                            [ngClass]="formFieldHelpers"
+                            class="flex-auto pl-1">
+                        <mat-label>Name</mat-label>
+                        <input
+                                matInput
+                                autocomplete="off"
+                                formControlName="name"
+                                [placeholder]="'The name'">
+                        <mat-icon
+                                class="icon-size-5"
+                                matPrefix
+                                [svgIcon]="'mat_solid:drive_file_rename_outline'"></mat-icon>
+                        <mat-error>
+                            This field is required
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+                <div class="flex">
+                    <mat-form-field
+                            [ngClass]="formFieldHelpers"
+                            class="flex-auto">
+                        <mat-label>IP v4</mat-label>
+                        <input
+                                matInput
+                                autocomplete="off"
+                                formControlName="ipV4"
+                                [placeholder]="'0.0.0.0'">
+                        <mat-icon
+                                class="icon-size-5"
+                                matPrefix
+                                [svgIcon]="'mat_solid:drive_file_rename_outline'"></mat-icon>
+                        <mat-error>
+                            This field is required
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+                <div class="flex">
+                    <button mat-flat-button
+                            [disabled]="form.invalid"
+                            class="ml-8/12"
+                            (click)="save()"
+                            [color]="'primary'">
+                        <mat-icon
+                                class="icon-size-5"
+                                matPrefix
+                                [svgIcon]="'mat_solid:save'"></mat-icon>
+                        Save
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
